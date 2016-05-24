@@ -1,0 +1,83 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Mojolicious::Plugin::PrettyConfig - Easy setup your app via config
+
+=head1 SYNOPSIS
+
+    # Mojolicious
+    $self->plugin(
+        PrettyConfig => {
+            pretty_cfg_code   => 1,
+            pretty_cfg_scalar => 1,
+        }
+    );
+
+    # Mojolicious::Lite
+    plugin PrettyConfig => {
+        pretty_cfg_code   => 1,
+        pretty_cfg_scalar => 1,
+    };
+
+    # In your config
+    app => [
+        secrets  => \[ 'mySecret', 'myOldSecret' ],
+        sessions => {
+            default_expiration => 1800,
+            cookie_name        => 'appSession',
+        },
+        routes => {
+            get => [
+                \" '/foo' => { controller => 'controller', action => 'do_foo' } => 'foo_action' ",
+                sub {
+                    '/boo'
+                        => { controller => 'controller', action => 'do_boo' }
+                        => 'boo_action'
+                },
+            ]
+        }
+    ]
+
+    # Which will be resolved into
+    $app->secrets( [ 'mySecret', 'myOldSecret' ] );
+    $app->sessions->cookie_name('appSession');
+    $app->sessions->default_expiration(1800);
+    $app->routes->get(
+        '/foo'
+            =>  {
+                    controller => 'controller',
+                    action     => 'do_foo'
+                }
+            => 'foo_action'
+    );
+    $app->routes->get(
+        '/boo'
+            =>  {
+                    controller => 'controller',
+                    action     => 'do_boo'
+                }
+            => 'boo_action'
+    );
+
+=head1 DESCRIPTION
+
+Configure application via config.
+Use C<app> key in config file to configure your application.
+
+There are some ref types to manage configuring flow.
+
+=head1 AUTHOR
+
+Dmitry "dim0xff" Latin <dim0xff@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2016 by Dmitry Latin.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
