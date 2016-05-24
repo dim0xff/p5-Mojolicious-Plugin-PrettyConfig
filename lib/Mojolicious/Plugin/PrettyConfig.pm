@@ -128,7 +128,7 @@ sub _set_values {
 
 __END__
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
     # Mojolicious
     $self->plugin(
