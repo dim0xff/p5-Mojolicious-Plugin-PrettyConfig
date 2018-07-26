@@ -23,6 +23,10 @@ plugin 'PrettyConfig' => {
                     },
                 ]
             },
+            static => [
+                extra => \{},
+                paths => \[],
+            ],
         ]
     },
     pretty_cfg_code   => 1,
@@ -38,6 +42,9 @@ $t->get_ok('/boo')->status_is(200)->content_like(qr/Boo! boo_action/);
 is_deeply( app->secrets, [ 'mySecret', 'myOldSecret' ], 'secrets' );
 is( app->sessions->cookie_name, 'testAppSession', 'sessions->cookie_name' );
 is( app->sessions->default_expiration, 1234, 'sessions->default_expiration' );
+
+is_deeply( app->static->extra, {}, 'static->extra');
+is_deeply( app->static->paths, [], 'static->paths');
 
 done_testing();
 

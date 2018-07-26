@@ -5,6 +5,8 @@ package Mojolicious::Plugin::PrettyConfig;
 use mro;
 use Mojo::Base 'Mojolicious::Plugin::Config';
 
+use Scalar::Util qw(blessed);
+
 sub register {
     my ( $self, $app, $conf ) = @_;
 
@@ -28,12 +30,17 @@ my %ref_types = (
         my $act_like_ordered_hash = !( @$config % 2 );
 
         if ($act_like_ordered_hash) {
+            my $check_applicator
+                = $key ? scalar( $applicator->$key ) : $applicator;
 
             # Check if default behaviour is possible
             # check if each $key is applicator has method with name $key
             my %hash = @$config;
             for my $k ( keys %hash ) {
-                if ( ref($k) || !$applicator->can($k) ) {
+                if (   ref($k)
+                    || !blessed($check_applicator)
+                    || !$check_applicator->can($k) )
+                {
                     $act_like_ordered_hash = 0;
                     last;
                 }

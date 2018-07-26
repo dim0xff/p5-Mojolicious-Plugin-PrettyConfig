@@ -61,17 +61,26 @@ package App {
 
     sub k2 {
         my $self = shift;
+
+        return unless @_;
+
         push( @{ $self->{k1} }, { k2 => shift } );
     }
 
     sub k3 {
         my $self = shift;
+
+        return unless @_;
+
         push( @{ $self->{k1} }, { k3 => shift } );
     }
 
     sub k4 {
         my $self = shift;
         $self->{k4} //= [];
+
+        return unless @_;
+
         push( @{ $self->{k4} }, shift );
     }
 
@@ -83,6 +92,9 @@ package App {
 
     sub k6 {
         my $self = shift;
+
+        return unless @_;
+
         push( @{ $self->{k5} }, { k6 => shift } );
     }
 
@@ -98,16 +110,25 @@ package App {
             $k7 = [];
             push( @{ $self->{k5} }, { k7 => $k7 } );
         }
+
+        return unless @_;
+
         push( @{$k7}, shift );
     }
 
     sub k8 {
         my $self = shift;
+
+        return unless @_;
+
         push( @{ $self->{k5} }, { k8 => shift } );
     }
 
     sub k9 {
         my $self = shift;
+
+        return unless @_;
+
         push( @{ $self->{k5} }, { k9 => shift } );
     }
 };
