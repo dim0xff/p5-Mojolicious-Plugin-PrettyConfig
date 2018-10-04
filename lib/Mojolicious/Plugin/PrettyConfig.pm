@@ -13,6 +13,8 @@ sub register {
     my $config = $self->next::method( $app, $conf );
 
     $self->_process_config( $app, $config, $conf );
+
+    return $config;
 }
 
 my %ref_types = (
